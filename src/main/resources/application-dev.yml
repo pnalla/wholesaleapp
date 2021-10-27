@@ -1,0 +1,5 @@
+toggle:
+  accountLists:
+    1.enabled: true
+  transactionLists:
+    1.enabled: true

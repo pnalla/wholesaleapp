@@ -1,0 +1,13 @@
+toggle:
+  accountLists:
+    1.enabled: true
+  transactionLists:
+    1.enabled: true
+
+Spring:
+  flyway:
+    locations: db/migration/local
+  datasource:
+    url: jdbc:h2:mem:wholesaledb
+    username: wholesale
+    password: wholesale

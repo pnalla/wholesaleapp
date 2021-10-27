@@ -1,0 +1,29 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /wholesale-app
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  application:
+    name: wholesale-app
+  accountService:
+    pageSize: 50
+  flyway:
+    locations: db/migration/base
+    check-location: false
+  datasource:
+    url: jdbc:h2:mem:wholesaledb
+    username: wholesale
+    password: wholesale
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+toggle:
+  accountLists:
+    1.enabled: false
+  transactionLists:
+    1.enabled: false
