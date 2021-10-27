@@ -33,4 +33,4 @@ Second one will get all the transaction for a particular account. pagination is 
 Swagger is implemented on the api's, if we run the application locally, we can see all the documentation.
 http://localhost:8090/swagger-ui.html
 
-I have written Unit Tests, Component Tests and blackbox test few of them. Due to time constraint couldn't write many test cases for all the clases.
+I have written Unit Tests, Component Tests and blackbox cucumber test cases few of them. Due to time constraint couldn't write many test cases for all the clases.
