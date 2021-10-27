@@ -30,10 +30,15 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
     implementation 'javax.validation:validation-api:2.0.1.Final'
+	compileOnly 'io.springfox:springfox-swagger2:2.6.1'
+	compileOnly 'io.springfox:springfox-swagger-ui:2.6.1'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompileOnly "io.cucumber:cucumber-java8:3.0.2"
+	testCompileOnly "io.cucumber:cucumber-junit:3.0.2"
+	testCompileOnly "io.cucumber:cucumber-spring:3.0.2"
 }
 
 test {
