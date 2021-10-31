@@ -1,7 +1,7 @@
 package com.anz.wholesaleapp.controler;
 
-import com.anz.wholesaleapp.repository.account.entity.Account;
-import com.anz.wholesaleapp.repository.transaction.entity.Transaction;
+import com.anz.wholesaleapp.api.Account;
+import com.anz.wholesaleapp.api.Transaction;
 import com.anz.wholesaleapp.application.AccountService;
 import com.anz.wholesaleapp.versioning.RequestVersions;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotBlank;
@@ -28,6 +29,7 @@ public class AccountController {
   private final AccountService accountService;
 
   @GetMapping("/v{version}/customer/{customerId}/account/lists")
+  @RequestMapping(method = RequestMethod.GET, value = "/v{version}/customer/{customerId}/account/list")
   @RequestVersions(supportedVersions = { 1 }, togglePropertyPrefix = "toggle.accountLists")
   public ResponseEntity<List<Account>> viewCustomerAccountLists(
           @PathVariable final int version,
@@ -37,6 +39,7 @@ public class AccountController {
   }
 
   @GetMapping("/v{version}/account/{accountId}/transactions")
+  @RequestMapping(method = RequestMethod.GET, value = "/v{version}/account/{accountId}/transactions")
   @RequestVersions(supportedVersions = { 1 }, togglePropertyPrefix = "toggle.transactionLists")
   public ResponseEntity<List<Transaction>> viewAccountTransactions(
           @PathVariable final int version,

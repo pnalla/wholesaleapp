@@ -23,26 +23,26 @@ import java.time.LocalDate;
 public class Account {
 
     @Id
-    @Column(name = "customerId", unique = true, nullable = false)
+    @Column(name = "customerid", unique = true, nullable = false)
     @NotBlank
     private String customerId;
 
-    @Column
+    @Column(name = "accountnumber")
     @NotBlank
     private String accountNumber;
 
-    @Column
+    @Column(name = "accounttype")
     private String accountType;
 
-    @Column
+    @Column(name = "accountname")
     private String accountName;
 
-    @Column
+    @Column(name = "balancedate")
     private LocalDate balanceDate;
 
-    @Column
+    @Column(name = "currency")
     private String currency;
 
-    @Column
+    @Column(name = "availablebalance")
     private String availableBalance;
 }

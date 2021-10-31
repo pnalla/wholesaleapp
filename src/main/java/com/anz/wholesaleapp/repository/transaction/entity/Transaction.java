@@ -23,28 +23,28 @@ import java.time.LocalDate;
 public class Transaction {
 
   @Id
-  @Column(unique = true, nullable = false)
+  @Column(unique = true, name = "accountnumber", nullable = false)
   @NotBlank
   private String accountNumber;
 
-  @Column
+  @Column(name = "accountname")
   private String accountName;
 
-  @Column
+  @Column(name = "valuedate")
   private LocalDate valueDate;
 
-  @Column
+  @Column(name = "currency")
   private String currency;
 
-  @Column
+  @Column(name = "debitamount")
   private String debitAmount;
 
-  @Column
+  @Column(name = "creditamount")
   private String creditAmount;
 
-  @Column
+  @Column(name = "transactiontype")
   private String transactionType;
 
-  @Column
+  @Column(name = "transactionnarrative")
   private String transactionNarrative;
 }

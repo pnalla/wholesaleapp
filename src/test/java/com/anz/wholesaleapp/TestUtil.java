@@ -29,4 +29,27 @@ public class TestUtil {
             .currency("SGD")
             .build());
   }
+
+  public static List<com.anz.wholesaleapp.api.Account> getAccountApiList() {
+    return Collections.singletonList(com.anz.wholesaleapp.api.Account.builder()
+            .accountNumber("73648595")
+            .accountName("SGDSavings")
+            .accountType("Savings")
+            .availableBalance("8,8763.90")
+            .currency("SGD")
+            .build());
+  }
+
+  public static List<com.anz.wholesaleapp.api.Transaction> getTransactionApiList() {
+    return Collections.singletonList(com.anz.wholesaleapp.api.Transaction.builder()
+            .accountNumber("73648595")
+            .accountName("SGDSavings")
+            .creditAmount("")
+            .transactionType("Savings")
+            .currency("SGD")
+            .debitAmount("8,97654.09")
+            .valueDate(LocalDate.of(2018, 10, 8)).build());
+  }
+
+
 }

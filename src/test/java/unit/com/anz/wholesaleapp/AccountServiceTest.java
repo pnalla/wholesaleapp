@@ -1,11 +1,14 @@
 package unit.com.anz.wholesaleapp;
 
 import com.anz.wholesaleapp.TestUtil;
+import com.anz.wholesaleapp.api.Account;
+import com.anz.wholesaleapp.api.Transaction;
 import com.anz.wholesaleapp.application.AccountService;
+import com.anz.wholesaleapp.exception.DataNotFoundException;
+import com.anz.wholesaleapp.mapper.AccountMapper;
+import com.anz.wholesaleapp.mapper.TransactionMapper;
 import com.anz.wholesaleapp.repository.account.AccountRepository;
-import com.anz.wholesaleapp.repository.account.entity.Account;
 import com.anz.wholesaleapp.repository.transaction.TransactionRepository;
-import com.anz.wholesaleapp.repository.transaction.entity.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,12 +21,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,6 +45,12 @@ public class AccountServiceTest {
   @Mock
   private TransactionRepository transactionRepository;
 
+  @Mock
+  private AccountMapper accountMapper;
+
+  @Mock
+  private TransactionMapper transactionMapper;
+
   @BeforeEach
   void initialize() {
     ReflectionTestUtils.setField(accountService, "pageSize", 5);
@@ -49,7 +60,7 @@ public class AccountServiceTest {
   void getListOfAccountsForCustomers_shouldReturnList() {
     PageRequest pageRequest = PageRequest.of(0, 5);
     when(accountRepository.findAllByCustomerId(CUSTOMER_ID, pageRequest)).thenReturn(new SliceImpl<>(TestUtil.getAccountList(), pageRequest, false));
-
+    when(accountMapper.mapAccounts(any())).thenReturn(TestUtil.getAccountApiList());
     List<Account> accountList = accountService.getListOfAccountsForCustomer(CUSTOMER_ID);
     assertAll("accountList",
         () -> assertEquals("73648595", accountList.get(0).getAccountNumber()),
@@ -62,10 +73,23 @@ public class AccountServiceTest {
   }
 
   @Test
+  void getListOfAccountsForCustomers_noRecords_shouldThrowException() {
+    PageRequest pageRequest = PageRequest.of(0, 5);
+    when(accountRepository.findAllByCustomerId(CUSTOMER_ID, pageRequest)).thenReturn(new SliceImpl<>(Collections.emptyList(), pageRequest, false));
+    when(accountMapper.mapAccounts(any())).thenReturn(TestUtil.getAccountApiList());
+    DataNotFoundException dataNotFoundException = assertThrows(DataNotFoundException.class, () -> accountService.getListOfAccountsForCustomer(CUSTOMER_ID));
+    assertAll("dataNotFoundException",
+        () -> assertNotNull(dataNotFoundException),
+        () -> assertEquals("API-400", dataNotFoundException.getApiError().getErrorId()),
+        () ->  assertEquals("No data found for this customer", dataNotFoundException.getApiError().getMessage())
+    );
+  }
+
+  @Test
   void getListOfTransactionForAccount_shouldReturnList() {
     PageRequest pageRequest = PageRequest.of(0, 5);
     when(transactionRepository.findAllByAccountNumber("73648595", pageRequest)).thenReturn(new SliceImpl<>(TestUtil.getTransactionList(), pageRequest, false));
-
+    when(transactionMapper.mapAccounts(any())).thenReturn(TestUtil.getTransactionApiList());
     List<Transaction> transactionList = accountService.getListOfTransactionForAccount("73648595");
     assertAll("transactionList",
         () -> assertEquals("73648595", transactionList.get(0).getAccountNumber()),
@@ -77,5 +101,16 @@ public class AccountServiceTest {
 
   }
 
+  @Test
+  void getListOfTransactionForAccount_noRecords_shouldThrowException() {
+    PageRequest pageRequest = PageRequest.of(0, 5);
+    when(transactionRepository.findAllByAccountNumber("73648595", pageRequest)).thenReturn(new SliceImpl<>(Collections.emptyList(), pageRequest, false));
+    DataNotFoundException dataNotFoundException = assertThrows(DataNotFoundException.class, () -> accountService.getListOfTransactionForAccount("73648595"));
+    assertAll("dataNotFoundException",
+            () -> assertNotNull(dataNotFoundException),
+            () -> assertEquals("API-400", dataNotFoundException.getApiError().getErrorId()),
+            () ->  assertEquals("No data found for this account", dataNotFoundException.getApiError().getMessage())
+    );
+  }
 
 }

@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
+	id 'com.avast.gradle.docker-compose' version '0.14.0'
 }
 
 group = 'com.anz'
@@ -19,7 +20,6 @@ repositories {
 	mavenCentral()
 }
 
-compileJava.inputs.files(processResources)
 
 dependencies {
 	compileOnly ('org.springframework.boot:spring-boot-starter') {
@@ -27,20 +27,30 @@ dependencies {
 	}
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
+	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
     implementation 'javax.validation:validation-api:2.0.1.Final'
-	compileOnly 'io.springfox:springfox-swagger2:2.6.1'
-	compileOnly 'io.springfox:springfox-swagger-ui:2.6.1'
+	compileOnly 'io.springfox:springfox-swagger2:2.4.0'
+	compileOnly 'io.springfox:springfox-swagger-ui:2.4.0'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.rest-assured:rest-assured:4.4.0'
 	testCompileOnly "io.cucumber:cucumber-java8:3.0.2"
 	testCompileOnly "io.cucumber:cucumber-junit:3.0.2"
 	testCompileOnly "io.cucumber:cucumber-spring:3.0.2"
+
+	implementation 'org.postgresql:postgresql'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+dockerCompose {
+	useComposeFiles.add("src/test/resources/docker-compose.yml")
+	isRequiredBy(tasks.test)
+//	isStopContainers = false
 }

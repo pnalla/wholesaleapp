@@ -1,0 +1,12 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      POSTGRES_USER: wholesale
+      POSTGRES_PASSWORD: wholesale
+      POSTGRES_DB: wholesale
+    volumes:
+      - /var/lib/postgresql/data/
+    ports:
+      - "5432:5432"

@@ -8,6 +8,7 @@ Spring:
   flyway:
     locations: db/migration/local
   datasource:
-    url: jdbc:h2:mem:wholesaledb
+    url: jdbc:postgresql://localhost:5432/wholesale
     username: wholesale
     password: wholesale
+    driver-class-name: org.postgresql.Driver

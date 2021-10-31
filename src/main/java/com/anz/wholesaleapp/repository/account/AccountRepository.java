@@ -13,5 +13,5 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 
   List<Account> findAllByCustomerId(String customerId);
 
-  Slice<Account> findAllByCustomerId(String customerId, Pageable pageable);
+  Slice<Account>  findAllByCustomerId(String customerId, Pageable pageable);
 }
