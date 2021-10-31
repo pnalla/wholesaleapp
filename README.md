@@ -6,6 +6,10 @@ This microservice exposes two endpoints
 Technologies used: Springboot, Java8, Gradle, PostgresSql, Flyway
 
 Docker is required to run component and blackbox tests
+
+I have used mapstructs to map the objects easily.
+
+Implemented versioning of the api's
   
 DDl Scripts:
   CREATE TABLE account (
@@ -32,7 +36,4 @@ CREATE TABLE transaction (
 First one will get all the accounts for a particular customer
 Second one will get all the transaction for a particular account. pagination is implemented in service class for better performance in sql query (just added as an extra feature)
 
-Swagger is implemented on the api's, if we run the application locally, we can see all the documentation.
-http://localhost:8090/swagger-ui.html
-
-I have written Unit Tests, Component Tests and blackbox cucumber test cases few of them. Due to time constraint couldn't write many test cases for all the clases.
+I have written Unit Tests, Component Tests and blackbox test cases few of them.
