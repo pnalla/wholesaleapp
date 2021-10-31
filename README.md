@@ -3,7 +3,9 @@ This microservice exposes two endpoints
   1. /v{version}/customer/{customerId}/account/lists
   2. /v{version}/account/{accountId}/transactions
   
-Technologies used: Springboot, Java8, Gradle, H2 database, Flyway
+Technologies used: Springboot, Java8, Gradle, PostgresSql, Flyway
+
+Docker is required to run component and blackbox tests
   
 DDl Scripts:
   CREATE TABLE account (
