@@ -13,11 +13,11 @@ spring:
         password: wholesale
         driver-class-name: org.postgresql.Driver
     flyway:
-        locations: db/migration/base
+        locations: classpath:db/migration
+        baseline-on-migrate: true
+        enabled: true
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
-        hibernate:
-            ddl-auto: update
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
