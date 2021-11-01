@@ -5,11 +5,11 @@ This microservice exposes two endpoints
   
 Technologies used: Springboot, Java8, Gradle, PostgresSql, Flyway
 
-Docker is required to run component and blackbox tests
-
-I have used mapstructs to map the objects easily.
-
-Implemented versioning of the api's
+1.Docker is required to run blackbox tests
+2.I have used mapstructs to map the objects easily.
+3.Implemented versioning of the api's
+4. custom exception "DataNotFound" is thrown if the data doesn't exists
+5. Added mapstruct implementaion to show extra skills
   
 DDl Scripts:
   CREATE TABLE account (
