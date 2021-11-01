@@ -37,3 +37,12 @@ First one will get all the accounts for a particular customer
 Second one will get all the transaction for a particular account. pagination is implemented in service class for better performance in sql query (just added as an extra feature)
 
 I have written Unit Tests, Component Tests and blackbox test cases few of them.
+
+To Run the app locally:
+./gradlew bootRun
+
+To run unit and component tests
+./gradlew test
+
+Before running blackbox tests you need to run ./gradlew bootRun and then run the test locally.
+
