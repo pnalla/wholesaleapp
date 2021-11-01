@@ -1,0 +1,32 @@
+server:
+    port: 8090
+    servlet:
+        context-path: /wholesale-app
+spring:
+    accountService:
+        pageSize: 50
+    application:
+        name: wholesale-app
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        password: wholesale
+        url: jdbc:postgresql://localhost:5432/wholesale
+        username: wholesale
+    flyway:
+        locations: db/migration/base
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                jdbc:
+                    lob:
+                        non_contextual_creation: true
+                temp:
+                    use_jdbc_metadata_defaults: false
+        show-sql: true
+toggle:
+    accountLists: '[null, {enabled=false}]'
+    transactionLists: '[null, {enabled=false}]'
