@@ -22,9 +22,9 @@ repositories {
 
 
 dependencies {
-	compileOnly ('org.springframework.boot:spring-boot-starter') {
-		exclude module : 'spring-boot-starter-logging'
-	}
+//	compileOnly ('org.springframework.boot:spring-boot-starter') {
+//		exclude module : 'spring-boot-starter-logging'
+//	}
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
@@ -38,9 +38,6 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.rest-assured:rest-assured:4.4.0'
-	testCompileOnly "io.cucumber:cucumber-java8:3.0.2"
-	testCompileOnly "io.cucumber:cucumber-junit:3.0.2"
-	testCompileOnly "io.cucumber:cucumber-spring:3.0.2"
 
 	implementation 'org.postgresql:postgresql'
 }
@@ -52,5 +49,12 @@ test {
 dockerCompose {
 	useComposeFiles.add("src/test/resources/docker-compose.yml")
 	isRequiredBy(tasks.test)
+	isRequiredBy(tasks.bootRun)
 //	isStopContainers = false
 }
+
+//test {
+//	dependsOn += ['bootRun']
+//}
+
+

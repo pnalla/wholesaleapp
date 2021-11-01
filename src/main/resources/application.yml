@@ -1,17 +1,17 @@
 server:
     port: 8090
     servlet:
-        context-path: /wholesale-app
+        context-path: /wholesale
 spring:
     accountService:
         pageSize: 50
     application:
         name: wholesale-app
     datasource:
-        driver-class-name: org.postgresql.Driver
-        password: wholesale
         url: jdbc:postgresql://localhost:5432/wholesale
         username: wholesale
+        password: wholesale
+        driver-class-name: org.postgresql.Driver
     flyway:
         locations: db/migration/base
     jpa:
@@ -28,5 +28,7 @@ spring:
                     use_jdbc_metadata_defaults: false
         show-sql: true
 toggle:
-    accountLists: '[null, {enabled=false}]'
-    transactionLists: '[null, {enabled=false}]'
+    accountLists:
+        1.enabled: true
+    transactionLists:
+        1.enabled: true

@@ -4,6 +4,7 @@ package component.com.anz.wholesaleapp;
 import com.anz.wholesaleapp.api.Account;
 import com.anz.wholesaleapp.api.Transaction;
 import com.anz.wholesaleapp.application.AccountService;
+import com.anz.wholesaleapp.exception.DataNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -13,6 +14,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ComponentTest
 @Sql(scripts = {"/db/testdata/data_cleanup.sql", "/db/testdata/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, config= @SqlConfig(transactionMode = SqlConfig.TransactionMode.ISOLATED))
@@ -34,6 +37,16 @@ public class AccountServiceTest {
   }
 
   @Test
+  void getListOfAccountsForCustomer_invalidCustomerId_shouldThrowException() {
+    DataNotFoundException dataNotFoundException = assertThrows(DataNotFoundException.class, () -> accountService.getListOfAccountsForCustomer("customerid"));
+    assertAll("dataNotFoundException",
+            () -> assertNotNull(dataNotFoundException),
+            () -> assertEquals("API-400", dataNotFoundException.getApiError().getErrorId()),
+            () ->  assertEquals("No data found for this customer", dataNotFoundException.getApiError().getMessage())
+    );
+  }
+
+  @Test
   void getListOfTransactionForAccount_shouldReturnList() {
     List<Transaction> transactionList = accountService.getListOfTransactionForAccount("585309209");
     assertAll("transactionList",
@@ -42,6 +55,16 @@ public class AccountServiceTest {
         () -> assertEquals("credit", transactionList.get(0).getTransactionType()),
         () -> assertEquals("8,300.23", transactionList.get(0).getCreditAmount()),
         () -> assertEquals("SGD", transactionList.get(0).getCurrency())
+    );
+  }
+
+  @Test
+  void getListOfTransactionForAccount_invalidAccountNumber_shouldThrowException() {
+    DataNotFoundException dataNotFoundException = assertThrows(DataNotFoundException.class, () -> accountService.getListOfTransactionForAccount("73643428595"));
+    assertAll("dataNotFoundException",
+            () -> assertNotNull(dataNotFoundException),
+            () -> assertEquals("API-400", dataNotFoundException.getApiError().getErrorId()),
+            () ->  assertEquals("No data found for this account", dataNotFoundException.getApiError().getMessage())
     );
   }
 }

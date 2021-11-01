@@ -29,7 +29,6 @@ public class AccountController {
   private final AccountService accountService;
 
   @GetMapping("/v{version}/customer/{customerId}/account/lists")
-  @RequestMapping(method = RequestMethod.GET, value = "/v{version}/customer/{customerId}/account/list")
   @RequestVersions(supportedVersions = { 1 }, togglePropertyPrefix = "toggle.accountLists")
   public ResponseEntity<List<Account>> viewCustomerAccountLists(
           @PathVariable final int version,
@@ -39,7 +38,6 @@ public class AccountController {
   }
 
   @GetMapping("/v{version}/account/{accountId}/transactions")
-  @RequestMapping(method = RequestMethod.GET, value = "/v{version}/account/{accountId}/transactions")
   @RequestVersions(supportedVersions = { 1 }, togglePropertyPrefix = "toggle.transactionLists")
   public ResponseEntity<List<Transaction>> viewAccountTransactions(
           @PathVariable final int version,
