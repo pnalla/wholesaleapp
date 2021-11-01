@@ -3,7 +3,7 @@ This microservice exposes two endpoints
   1. /v{version}/customer/{customerId}/account/lists
   2. /v{version}/account/{accountId}/transactions
   
-Technologies used: Springboot, Java8, Gradle, PostgresSql, Flyway
+Technologies used: Springboot, Java8, Gradle, PostgresSql, Flyway, docker
 
 1.Docker is required to run blackbox tests
 2.I have used mapstructs to map the objects easily.
