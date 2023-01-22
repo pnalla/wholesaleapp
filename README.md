@@ -1,15 +1,26 @@
 # wholesaleapp
-This microservice exposes two endpoints
+
+```
+The application allows a user to view accounts and
+subsequently view transactions on any of the accounts they hold.
+
+- View account list
+- View account transactions
+```
+
+### This microservice exposes two endpoints
 1. /v{version}/customer/{customerId}/account/lists
 2. /v{version}/account/{accountId}/transactions
 
-### Technologies used:
+### Technologies and libraries used:
 Springboot
 Java8
 Gradle
 PostgresSql
 Flyway
 docker
+mapstructs
+openswagger
 
 ```
 1.Docker is required to run blackbox tests
@@ -48,17 +59,21 @@ Second one will get all the transaction for a particular account. pagination is 
 
 ```
 
-I have written Unit Tests, Component Tests and blackbox test cases few of them.
 
 ### To Run the app locally:
 ```
 ./gradlew bootRun
 ```
 
-### To run unit and component tests
+### Running the tests
 ```
 ./gradlew test
 ```
 
-Before running blackbox tests you need to run ./gradlew bootRun and then run the test locally.
-
+### Running blackbox tests
+```
+Before running blackbox tests you need to run 
+./gradlew bootRun 
+and then run 
+./gradlew test
+```

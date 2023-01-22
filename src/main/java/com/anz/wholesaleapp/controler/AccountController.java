@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotBlank;
@@ -34,7 +33,7 @@ public class AccountController {
           @PathVariable final int version,
           @PathVariable("customerId") @NotBlank final String customerId,
           @RequestHeader final HttpHeaders requestHeaders) {
-    return new ResponseEntity<>(accountService.getListOfAccountsForCustomer(customerId), HttpStatus.OK);
+    return new ResponseEntity<>(accountService.retrieveCustomerAccounts(customerId), HttpStatus.OK);
   }
 
   @GetMapping("/v{version}/account/{accountId}/transactions")
@@ -43,7 +42,7 @@ public class AccountController {
           @PathVariable final int version,
           @PathVariable("accountId") @NotBlank final String accountId,
           @RequestHeader final HttpHeaders requestHeaders) {
-    return new ResponseEntity<>(accountService.getListOfTransactionForAccount(accountId), HttpStatus.OK);
+    return new ResponseEntity<>(accountService.retrieveAccountTransactions(accountId), HttpStatus.OK);
   }
 }
 

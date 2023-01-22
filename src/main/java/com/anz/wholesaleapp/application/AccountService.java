@@ -31,7 +31,12 @@ public class AccountService {
   @Value("${spring.accountService.pageSize:50}")
   private int pageSize;
 
-  public List<com.anz.wholesaleapp.api.Account> getListOfAccountsForCustomer (String customerId) {
+  /**
+   * This method gets all the customer accounts from postgres database.
+   * @param customerId String.
+   * @return accountList.
+   */
+  public List<com.anz.wholesaleapp.api.Account> retrieveCustomerAccounts(String customerId) {
     int pagNbr = 0;
     Slice<Account> accountSlice;
     List<Account> accountList = new ArrayList<>();
@@ -51,7 +56,12 @@ public class AccountService {
     return accountMapper.mapAccounts(accountList);
   }
 
-  public List<com.anz.wholesaleapp.api.Transaction> getListOfTransactionForAccount (String accountNumber) {
+  /**
+   * This method gets all account transactions.
+   * @param accountNumber String.
+   * @return transactionList.
+   */
+  public List<com.anz.wholesaleapp.api.Transaction> retrieveAccountTransactions(String accountNumber) {
     int pagNbr = 0;
     Slice<Transaction> transactionSlice;
     List<Transaction> transactionList = new ArrayList<>();

@@ -26,7 +26,7 @@ public class AccountServiceTest {
 
   @Test
   void getListOfAccountsForCustomer_shouldReturnList() {
-    List<Account> accountList = accountService.getListOfAccountsForCustomer("12345678");
+    List<Account> accountList = accountService.retrieveCustomerAccounts("12345678");
     assertAll("accountList",
         () -> assertEquals("585309209", accountList.get(0).getAccountNumber()),
         () -> assertEquals("SGSavings726", accountList.get(0).getAccountName()),
@@ -38,7 +38,7 @@ public class AccountServiceTest {
 
   @Test
   void getListOfAccountsForCustomer_invalidCustomerId_shouldThrowException() {
-    DataNotFoundException dataNotFoundException = assertThrows(DataNotFoundException.class, () -> accountService.getListOfAccountsForCustomer("customerid"));
+    DataNotFoundException dataNotFoundException = assertThrows(DataNotFoundException.class, () -> accountService.retrieveCustomerAccounts("customerid"));
     assertAll("dataNotFoundException",
             () -> assertNotNull(dataNotFoundException),
             () -> assertEquals("API-400", dataNotFoundException.getApiError().getErrorId()),
@@ -48,7 +48,7 @@ public class AccountServiceTest {
 
   @Test
   void getListOfTransactionForAccount_shouldReturnList() {
-    List<Transaction> transactionList = accountService.getListOfTransactionForAccount("585309209");
+    List<Transaction> transactionList = accountService.retrieveAccountTransactions("585309209");
     assertAll("transactionList",
         () -> assertEquals("585309209", transactionList.get(0).getAccountNumber()),
         () -> assertEquals("SGSavings726", transactionList.get(0).getAccountName()),
@@ -60,7 +60,7 @@ public class AccountServiceTest {
 
   @Test
   void getListOfTransactionForAccount_invalidAccountNumber_shouldThrowException() {
-    DataNotFoundException dataNotFoundException = assertThrows(DataNotFoundException.class, () -> accountService.getListOfTransactionForAccount("73643428595"));
+    DataNotFoundException dataNotFoundException = assertThrows(DataNotFoundException.class, () -> accountService.retrieveAccountTransactions("73643428595"));
     assertAll("dataNotFoundException",
             () -> assertNotNull(dataNotFoundException),
             () -> assertEquals("API-400", dataNotFoundException.getApiError().getErrorId()),
